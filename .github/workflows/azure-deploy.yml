@@ -1,4 +1,4 @@
-name: Deploy to Azure Web App
+name: Deploy to Azure Static Website
 
 on:
   push:
@@ -7,8 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: yanad-production
-  AZURE_RG_NAME: rg-yanad-production
+  AZURE_STORAGE_ACCOUNT: yanadproduction
   NODE_VERSION: '20.x'
 
 permissions:
@@ -31,45 +30,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Next.js app
+      - name: Build Next.js static export
         run: npm run build
-
-      - name: Prepare standalone deployment
-        run: |
-          mkdir -p standalone
-          cp -r .next/standalone/. standalone/
-          mkdir -p standalone/.next/static
-          cp -r .next/static standalone/.next/
-          cp -r public standalone/
-          cd standalone && zip -r ../app.zip .
 
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Configure Azure Web App settings
+      - name: Upload to Azure Static Website
         run: |
-          az webapp config appsettings set \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --resource-group ${{ env.AZURE_RG_NAME }} \
-            --settings \
-            SCM_DO_BUILD_DURING_DEPLOYMENT=false \
-            WEBSITE_RUN_FROM_PACKAGE=1 \
-            WEBSITE_NODE_DEFAULT_VERSION=~20
+          az storage blob upload-batch \
+            --account-name ${{ env.AZURE_STORAGE_ACCOUNT }} \
+            --account-key "${{ secrets.AZURE_STORAGE_KEY }}" \
+            --destination '$web' \
+            --source out \
+            --overwrite
 
-      - name: Configure startup command
+      - name: Output website URL
         run: |
-          az webapp config set \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --resource-group ${{ env.AZURE_RG_NAME }} \
-            --startup-file "node server.js"
-
-      - name: Wait for configuration to apply
-        run: sleep 30
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: app.zip
+          echo "Site deployed to: https://${{ env.AZURE_STORAGE_ACCOUNT }}.z28.web.core.windows.net/"
