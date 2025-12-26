@@ -48,18 +48,24 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Configure Azure Web App
+      - name: Configure Azure Web App settings
         run: |
-          az webapp config appsettings set --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }} --settings SCM_DO_BUILD_DURING_DEPLOYMENT=false WEBSITE_RUN_FROM_PACKAGE=0
-
-      - name: Deploy to Azure Web App
-        run: |
-          az webapp deploy --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }} --src-path app.zip --type zip --async true
+          az webapp config appsettings set \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group ${{ env.AZURE_RG_NAME }} \
+            --settings \
+            SCM_DO_BUILD_DURING_DEPLOYMENT=false \
+            WEBSITE_RUN_FROM_PACKAGE=1
 
       - name: Configure startup command
         run: |
-          az webapp config set --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }} --startup-file "node server.js"
+          az webapp config set \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group ${{ env.AZURE_RG_NAME }} \
+            --startup-file "node server.js"
 
-      - name: Restart Web App
-        run: |
-          az webapp restart --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }}
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: app.zip
