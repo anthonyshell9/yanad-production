@@ -9,7 +9,6 @@ export default function Header() {
   const navLinks = [
     { href: "/", label: "Accueil" },
     { href: "/artists", label: "Artistes" },
-    { href: "/portfolio", label: "Releases" },
     { href: "/about", label: "Le Label" },
     { href: "/contact", label: "Contact" },
   ];
@@ -18,16 +17,14 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-sm border-b-4 border-[#e63946]">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo - Simple et moderne */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative flex items-center">
-              {/* Logo simple - Y stylisé */}
               <div className="w-12 h-12 bg-[#e63946] flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <span className="font-[family-name:var(--font-bangers)] text-3xl text-white">
                   Y
                 </span>
               </div>
-              {/* Texte du logo */}
               <div className="ml-3 hidden sm:flex flex-col leading-none">
                 <span className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-white">
                   YANAD
@@ -51,12 +48,6 @@ export default function Header() {
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-[#e63946] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className="ml-4 btn-comic bg-[#e63946] text-white hover:bg-white hover:text-[#e63946] px-6 py-2"
-            >
-              DÉMO
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}

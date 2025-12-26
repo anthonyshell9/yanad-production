@@ -6,9 +6,6 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    artistName: "",
-    genre: "",
-    links: "",
     message: "",
   });
 
@@ -23,7 +20,7 @@ export default function ContactPage() {
     setIsSubmitting(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -35,27 +32,20 @@ export default function ContactPage() {
       <div className="pt-20 min-h-screen flex items-center justify-center">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="comic-panel p-12">
-            <div className="font-[family-name:var(--font-bangers)] text-8xl text-[#e63946] mb-6">
-              REÇU !
+            <div className="font-[family-name:var(--font-bangers)] text-6xl text-[#e63946] mb-6">
+              ENVOYÉ
             </div>
-            <p className="text-gray-300 text-lg mb-8">
-              On a bien reçu ton message. Si ton son nous parle, on te recontacte.
+            <p className="text-gray-400 text-lg mb-8">
+              Message reçu.
             </p>
             <button
               onClick={() => {
                 setSubmitted(false);
-                setFormData({
-                  name: "",
-                  email: "",
-                  artistName: "",
-                  genre: "",
-                  links: "",
-                  message: "",
-                });
+                setFormData({ name: "", email: "", message: "" });
               }}
               className="btn-comic bg-[#e63946] text-white hover:bg-white hover:text-[#e63946]"
             >
-              ENVOYER UN AUTRE MESSAGE
+              OK
             </button>
           </div>
         </div>
@@ -73,24 +63,21 @@ export default function ContactPage() {
             <h1 className="font-[family-name:var(--font-bangers)] text-5xl sm:text-6xl lg:text-7xl text-white mb-6">
               <span className="text-[#e63946]">CONTACT</span>
             </h1>
-            <p className="text-gray-300 text-xl max-w-2xl mx-auto">
-              Tu veux nous envoyer ta démo ou juste nous contacter ? C&apos;est ici.
-            </p>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
       <section className="py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-5 gap-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
             {/* Info Side */}
-            <div className="lg:col-span-2">
+            <div>
               <h2 className="font-[family-name:var(--font-bangers)] text-3xl text-white mb-8">
                 YANAD <span className="text-[#e63946]">PRODUCTION</span>
               </h2>
 
-              <div className="space-y-6 mb-12">
+              <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-[#e63946] flex items-center justify-center">
                     <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -118,10 +105,9 @@ export default function ContactPage() {
               </div>
 
               {/* Social Links */}
-              <div>
-                <p className="text-gray-500 text-sm mb-4">RÉSEAUX</p>
+              <div className="mt-8">
                 <div className="flex gap-3">
-                  {["IG", "TW", "YT", "SP"].map((social) => (
+                  {["IG", "YT"].map((social) => (
                     <a
                       key={social}
                       href="#"
@@ -137,96 +123,40 @@ export default function ContactPage() {
             </div>
 
             {/* Form Side */}
-            <div className="lg:col-span-3">
+            <div>
               <div className="comic-panel p-8">
-                <h3 className="font-[family-name:var(--font-bangers)] text-2xl text-[#e63946] mb-6">
-                  ENVOIE-NOUS UN MESSAGE
-                </h3>
-
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
-                        TON NOM *
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
-                        placeholder="Prénom Nom"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
-                        EMAIL *
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
-                        placeholder="ton@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
-                        NOM D&apos;ARTISTE
-                      </label>
-                      <input
-                        type="text"
-                        name="artistName"
-                        value={formData.artistName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
-                        placeholder="Ton blaze"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
-                        GENRE MUSICAL
-                      </label>
-                      <select
-                        name="genre"
-                        value={formData.genre}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
-                      >
-                        <option value="">Sélectionne un genre</option>
-                        <option value="rap">Rap</option>
-                        <option value="afro">Afro-Pop</option>
-                        <option value="rnb">R&B</option>
-                        <option value="pop">Pop</option>
-                        <option value="electro">Électro</option>
-                        <option value="other">Autre</option>
-                      </select>
-                    </div>
-                  </div>
-
                   <div>
                     <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
-                      LIENS (Spotify, SoundCloud, YouTube...)
+                      NOM
                     </label>
                     <input
                       type="text"
-                      name="links"
-                      value={formData.links}
+                      name="name"
+                      value={formData.name}
                       onChange={handleChange}
+                      required
                       className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
-                      placeholder="Tes liens musique"
                     />
                   </div>
 
                   <div>
                     <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
-                      TON MESSAGE *
+                      EMAIL
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
+                      MESSAGE
                     </label>
                     <textarea
                       name="message"
@@ -235,20 +165,19 @@ export default function ContactPage() {
                       required
                       rows={5}
                       className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors resize-none"
-                      placeholder="Parle-nous de toi et de ta musique..."
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full btn-comic text-xl ${
+                    className={`w-full btn-comic ${
                       isSubmitting
                         ? "bg-gray-500 cursor-not-allowed"
                         : "bg-[#e63946] hover:bg-white hover:text-[#e63946]"
                     } text-white`}
                   >
-                    {isSubmitting ? "ENVOI..." : "ENVOYER"}
+                    {isSubmitting ? "..." : "ENVOYER"}
                   </button>
                 </form>
               </div>
