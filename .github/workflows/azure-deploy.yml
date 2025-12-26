@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,40 +34,32 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Prepare deployment package
+      - name: Prepare standalone deployment
         run: |
-          cp -r .next/standalone/. deploy/
-          cp -r .next/static deploy/.next/static
-          cp -r public deploy/public
-          cd deploy && zip -r ../deploy.zip .
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-package
-          path: deploy.zip
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: app-package
+          mkdir -p standalone
+          cp -r .next/standalone/. standalone/
+          mkdir -p standalone/.next/static
+          cp -r .next/static standalone/.next/
+          cp -r public standalone/
+          cd standalone && zip -r ../app.zip .
 
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Configure Azure Web App
+        run: |
+          az webapp config appsettings set --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }} --settings SCM_DO_BUILD_DURING_DEPLOYMENT=false WEBSITE_RUN_FROM_PACKAGE=0
+
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: deploy.zip
+        run: |
+          az webapp deploy --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }} --src-path app.zip --type zip --async true
 
       - name: Configure startup command
         run: |
           az webapp config set --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }} --startup-file "node server.js"
+
+      - name: Restart Web App
+        run: |
+          az webapp restart --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RG_NAME }}
