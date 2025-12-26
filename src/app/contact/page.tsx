@@ -6,10 +6,9 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    company: "",
-    service: "",
-    budget: "",
+    artistName: "",
+    genre: "",
+    links: "",
     message: "",
   });
 
@@ -19,7 +18,6 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1500));
     setSubmitted(true);
     setIsSubmitting(false);
@@ -37,12 +35,11 @@ export default function ContactPage() {
       <div className="pt-20 min-h-screen flex items-center justify-center">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="comic-panel p-12">
-            <div className="text-8xl mb-6">🎉</div>
-            <h1 className="font-[family-name:var(--font-bangers)] text-4xl sm:text-5xl text-[#ffd23f] mb-4">
-              MESSAGE ENVOYÉ !
-            </h1>
+            <div className="font-[family-name:var(--font-bangers)] text-8xl text-[#e63946] mb-6">
+              REÇU !
+            </div>
             <p className="text-gray-300 text-lg mb-8">
-              Merci pour votre message ! Notre équipe vous répondra dans les plus brefs délais.
+              On a bien reçu ton message. Si ton son nous parle, on te recontacte.
             </p>
             <button
               onClick={() => {
@@ -50,14 +47,13 @@ export default function ContactPage() {
                 setFormData({
                   name: "",
                   email: "",
-                  phone: "",
-                  company: "",
-                  service: "",
-                  budget: "",
+                  artistName: "",
+                  genre: "",
+                  links: "",
                   message: "",
                 });
               }}
-              className="btn-comic bg-[#ff6b35] text-black hover:bg-[#ffd23f]"
+              className="btn-comic bg-[#e63946] text-white hover:bg-white hover:text-[#e63946]"
             >
               ENVOYER UN AUTRE MESSAGE
             </button>
@@ -74,16 +70,11 @@ export default function ContactPage() {
         <div className="absolute inset-0 action-lines opacity-20"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="inline-block mb-6 float-animation">
-              <div className="bg-[#ff6b35] border-4 border-black px-6 py-2 rotate-2">
-                <span className="font-[family-name:var(--font-bangers)] text-black text-xl">PARLONS DE VOTRE PROJET !</span>
-              </div>
-            </div>
             <h1 className="font-[family-name:var(--font-bangers)] text-5xl sm:text-6xl lg:text-7xl text-white mb-6">
-              <span className="text-[#ffd23f]">CONTACTEZ</span>-NOUS
+              <span className="text-[#e63946]">CONTACT</span>
             </h1>
-            <p className="text-gray-300 text-xl max-w-3xl mx-auto">
-              Une idée ? Un projet ? Des questions ? Notre équipe est là pour vous accompagner !
+            <p className="text-gray-300 text-xl max-w-2xl mx-auto">
+              Tu veux nous envoyer ta démo ou juste nous contacter ? C&apos;est ici.
             </p>
           </div>
         </div>
@@ -91,107 +82,72 @@ export default function ContactPage() {
 
       {/* Contact Section */}
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-5 gap-12">
+            {/* Info Side */}
+            <div className="lg:col-span-2">
               <h2 className="font-[family-name:var(--font-bangers)] text-3xl text-white mb-8">
-                NOS <span className="text-[#ff6b35]">COORDONNÉES</span>
+                YANAD <span className="text-[#e63946]">PRODUCTION</span>
               </h2>
 
               <div className="space-y-6 mb-12">
-                {[
-                  {
-                    icon: "📍",
-                    title: "Adresse",
-                    content: "123 Rue de la Création\n75011 Paris, France",
-                    color: "#ff6b35"
-                  },
-                  {
-                    icon: "📧",
-                    title: "Email",
-                    content: "contact@yanad-production.com",
-                    color: "#ffd23f"
-                  },
-                  {
-                    icon: "📞",
-                    title: "Téléphone",
-                    content: "+33 1 23 45 67 89",
-                    color: "#004e89"
-                  },
-                  {
-                    icon: "⏰",
-                    title: "Horaires",
-                    content: "Lun - Ven : 9h - 19h\nSam : Sur rendez-vous",
-                    color: "#ff6b35"
-                  },
-                ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-4">
-                    <div
-                      className="w-14 h-14 flex items-center justify-center border-4 border-black flex-shrink-0"
-                      style={{ backgroundColor: item.color }}
-                    >
-                      <span className="text-2xl">{item.icon}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-[family-name:var(--font-bangers)] text-xl text-white mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-400 whitespace-pre-line">{item.content}</p>
-                    </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#e63946] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
                   </div>
-                ))}
+                  <div>
+                    <p className="text-gray-500 text-sm">Email</p>
+                    <p className="text-white">contact@yanad-production.com</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#e63946] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-sm">Localisation</p>
+                    <p className="text-white">Paris, France</p>
+                  </div>
+                </div>
               </div>
 
               {/* Social Links */}
               <div>
-                <h3 className="font-[family-name:var(--font-bangers)] text-xl text-white mb-4">
-                  SUIVEZ-NOUS
-                </h3>
-                <div className="flex gap-4">
-                  {[
-                    { name: "Instagram", color: "#ff6b35" },
-                    { name: "YouTube", color: "#ffd23f" },
-                    { name: "LinkedIn", color: "#004e89" },
-                    { name: "Twitter", color: "#ff6b35" },
-                  ].map((social) => (
+                <p className="text-gray-500 text-sm mb-4">RÉSEAUX</p>
+                <div className="flex gap-3">
+                  {["IG", "TW", "YT", "SP"].map((social) => (
                     <a
-                      key={social.name}
+                      key={social}
                       href="#"
-                      className="w-12 h-12 flex items-center justify-center border-4 border-black transition-transform hover:scale-110"
-                      style={{ backgroundColor: social.color }}
+                      className="w-12 h-12 bg-[#1a1a2e] border-2 border-black flex items-center justify-center hover:bg-[#e63946] transition-colors"
                     >
-                      <span className="font-[family-name:var(--font-bangers)] text-black text-lg">
-                        {social.name[0]}
+                      <span className="font-[family-name:var(--font-bangers)] text-white text-sm">
+                        {social}
                       </span>
                     </a>
                   ))}
                 </div>
               </div>
-
-              {/* Map Placeholder */}
-              <div className="mt-12 comic-panel p-4">
-                <div className="aspect-video bg-[#1a1a2e] flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-4xl">🗺️</span>
-                    <p className="text-gray-400 mt-2">Paris, France</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            {/* Contact Form */}
-            <div>
+            {/* Form Side */}
+            <div className="lg:col-span-3">
               <div className="comic-panel p-8">
-                <h2 className="font-[family-name:var(--font-bangers)] text-3xl text-[#ffd23f] mb-6 text-center">
-                  ENVOYEZ-NOUS UN MESSAGE !
-                </h2>
+                <h3 className="font-[family-name:var(--font-bangers)] text-2xl text-[#e63946] mb-6">
+                  ENVOIE-NOUS UN MESSAGE
+                </h3>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
-                        NOM *
+                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
+                        TON NOM *
                       </label>
                       <input
                         type="text"
@@ -199,12 +155,12 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors"
-                        placeholder="Votre nom"
+                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
+                        placeholder="Prénom Nom"
                       />
                     </div>
                     <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
+                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
                         EMAIL *
                       </label>
                       <input
@@ -213,94 +169,73 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors"
-                        placeholder="votre@email.com"
+                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
+                        placeholder="ton@email.com"
                       />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
-                        TÉLÉPHONE
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors"
-                        placeholder="+33 6 12 34 56 78"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
-                        ENTREPRISE
+                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
+                        NOM D&apos;ARTISTE
                       </label>
                       <input
                         type="text"
-                        name="company"
-                        value={formData.company}
+                        name="artistName"
+                        value={formData.artistName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors"
-                        placeholder="Votre entreprise"
+                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
+                        placeholder="Ton blaze"
                       />
                     </div>
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
-                        SERVICE *
+                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
+                        GENRE MUSICAL
                       </label>
                       <select
-                        name="service"
-                        value={formData.service}
+                        name="genre"
+                        value={formData.genre}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
                       >
-                        <option value="">Sélectionnez un service</option>
-                        <option value="video">Production Vidéo</option>
-                        <option value="music">Production Musicale</option>
-                        <option value="event">Événementiel</option>
-                        <option value="post">Post-Production</option>
-                        <option value="artistic">Direction Artistique</option>
-                        <option value="streaming">Streaming & Live</option>
+                        <option value="">Sélectionne un genre</option>
+                        <option value="rap">Rap</option>
+                        <option value="afro">Afro-Pop</option>
+                        <option value="rnb">R&B</option>
+                        <option value="pop">Pop</option>
+                        <option value="electro">Électro</option>
                         <option value="other">Autre</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
-                        BUDGET
-                      </label>
-                      <select
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors"
-                      >
-                        <option value="">Sélectionnez un budget</option>
-                        <option value="small">Moins de 5 000€</option>
-                        <option value="medium">5 000€ - 15 000€</option>
-                        <option value="large">15 000€ - 50 000€</option>
-                        <option value="enterprise">Plus de 50 000€</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block font-[family-name:var(--font-bangers)] text-white mb-2">
-                      VOTRE MESSAGE *
+                    <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
+                      LIENS (Spotify, SoundCloud, YouTube...)
+                    </label>
+                    <input
+                      type="text"
+                      name="links"
+                      value={formData.links}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors"
+                      placeholder="Tes liens musique"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-[family-name:var(--font-bangers)] text-white mb-2 text-sm">
+                      TON MESSAGE *
                     </label>
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      rows={6}
-                      className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#ff6b35] focus:outline-none transition-colors resize-none"
-                      placeholder="Décrivez votre projet..."
+                      rows={5}
+                      className="w-full px-4 py-3 bg-[#1a1a2e] border-4 border-black text-white focus:border-[#e63946] focus:outline-none transition-colors resize-none"
+                      placeholder="Parle-nous de toi et de ta musique..."
                     ></textarea>
                   </div>
 
@@ -310,64 +245,14 @@ export default function ContactPage() {
                     className={`w-full btn-comic text-xl ${
                       isSubmitting
                         ? "bg-gray-500 cursor-not-allowed"
-                        : "bg-[#ff6b35] hover:bg-[#ffd23f]"
-                    } text-black`}
+                        : "bg-[#e63946] hover:bg-white hover:text-[#e63946]"
+                    } text-white`}
                   >
-                    {isSubmitting ? "ENVOI EN COURS..." : "ENVOYER LE MESSAGE !"}
+                    {isSubmitting ? "ENVOI..." : "ENVOYER"}
                   </button>
                 </form>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-[#0f0f1a]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-[family-name:var(--font-bangers)] text-4xl text-white mb-4">
-              QUESTIONS <span className="text-[#ffd23f]">FRÉQUENTES</span>
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              {
-                q: "Quels sont vos délais de réalisation ?",
-                a: "Les délais varient selon la complexité du projet. En général, comptez 2-4 semaines pour un clip, 1-3 mois pour un album complet.",
-                color: "#ff6b35"
-              },
-              {
-                q: "Travaillez-vous avec des artistes émergents ?",
-                a: "Absolument ! Nous adorons découvrir et accompagner les nouveaux talents. N'hésitez pas à nous contacter quel que soit votre niveau.",
-                color: "#ffd23f"
-              },
-              {
-                q: "Proposez-vous des devis gratuits ?",
-                a: "Oui, tous nos devis sont gratuits et sans engagement. Décrivez-nous votre projet et nous vous répondrons sous 48h.",
-                color: "#004e89"
-              },
-              {
-                q: "Intervenez-vous en dehors de Paris ?",
-                a: "Nous intervenons partout en France et à l'international pour vos projets. Des frais de déplacement peuvent s'appliquer.",
-                color: "#ff6b35"
-              },
-            ].map((faq, index) => (
-              <div
-                key={index}
-                className="comic-panel p-6"
-                style={{ transform: `rotate(${index % 2 === 0 ? '0.5' : '-0.5'}deg)` }}
-              >
-                <h3
-                  className="font-[family-name:var(--font-bangers)] text-xl mb-2"
-                  style={{ color: faq.color }}
-                >
-                  {faq.q}
-                </h3>
-                <p className="text-gray-400">{faq.a}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

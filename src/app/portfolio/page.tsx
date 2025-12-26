@@ -3,114 +3,113 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const categories = ["Tous", "Vidéo", "Musique", "Événement", "Streaming"];
+const categories = ["Tous", "Single", "EP", "Album"];
 
-const projects = [
+const releases = [
   {
     id: 1,
-    title: "Clip Musical - NOVA",
-    category: "Vidéo",
-    description: "Clip musical futuriste pour l'artiste émergente NOVA",
+    title: "Eclipse",
+    artist: "NOVA",
+    type: "Single",
     year: "2024",
-    color: "#ff6b35"
+    streams: "850K"
   },
   {
     id: 2,
-    title: "Album \"Éclipse\" - The Wanderers",
-    category: "Musique",
-    description: "Production complète de l'album studio du groupe",
+    title: "Altitude",
+    artist: "KENZO",
+    type: "Album",
     year: "2024",
-    color: "#ffd23f"
+    streams: "1.2M"
   },
   {
     id: 3,
-    title: "Festival Summer Vibes",
-    category: "Événement",
-    description: "Organisation et captation du festival annuel",
+    title: "Miroir",
+    artist: "LUNA",
+    type: "Single",
     year: "2024",
-    color: "#004e89"
+    streams: "620K"
   },
   {
     id: 4,
-    title: "Publicité TechStart",
-    category: "Vidéo",
-    description: "Campagne publicitaire pour startup tech innovante",
+    title: "Gravity",
+    artist: "AXIS",
+    type: "Single",
     year: "2024",
-    color: "#ff6b35"
+    streams: "450K"
   },
   {
     id: 5,
-    title: "Concert Live - DJ Pulse",
-    category: "Streaming",
-    description: "Diffusion live du concert avec 50k viewers",
+    title: "Nuit Blanche",
+    artist: "NOVA",
+    type: "EP",
     year: "2024",
-    color: "#004e89"
+    streams: "980K"
   },
   {
     id: 6,
-    title: "Court-métrage \"Horizon\"",
-    category: "Vidéo",
-    description: "Court-métrage primé au festival de Cannes",
-    year: "2023",
-    color: "#ff6b35"
+    title: "Golden Hour",
+    artist: "MAYA",
+    type: "Single",
+    year: "2024",
+    streams: "320K"
   },
   {
     id: 7,
-    title: "EP \"Neon Dreams\" - Synthia",
-    category: "Musique",
-    description: "Production et mixage de l'EP électro",
+    title: "Fumée",
+    artist: "KENZO",
+    type: "Single",
     year: "2023",
-    color: "#ffd23f"
+    streams: "780K"
   },
   {
     id: 8,
-    title: "Gala Annuel Corp XYZ",
-    category: "Événement",
-    description: "Soirée corporate avec 500 invités",
+    title: "Étoiles",
+    artist: "LUNA",
+    type: "Single",
     year: "2023",
-    color: "#004e89"
+    streams: "540K"
   },
   {
     id: 9,
-    title: "Série Web \"Connexions\"",
-    category: "Vidéo",
-    description: "Mini-série en 6 épisodes pour plateforme streaming",
+    title: "Pulse",
+    artist: "AXIS",
+    type: "EP",
     year: "2023",
-    color: "#ff6b35"
+    streams: "380K"
   },
   {
     id: 10,
-    title: "Masterclass Live - Prod Academy",
-    category: "Streaming",
-    description: "Formation en ligne avec interaction temps réel",
+    title: "Racines",
+    artist: "ZEPHYR",
+    type: "Album",
     year: "2023",
-    color: "#004e89"
+    streams: "290K"
   },
   {
     id: 11,
-    title: "Single \"Gravity\" - AXIS",
-    category: "Musique",
-    description: "Production du single certifié or",
+    title: "Premier Souffle",
+    artist: "NOVA",
+    type: "Single",
     year: "2023",
-    color: "#ffd23f"
+    streams: "420K"
   },
   {
     id: 12,
-    title: "Documentaire \"Urban Stories\"",
-    category: "Vidéo",
-    description: "Documentaire sur la scène artistique urbaine",
-    year: "2022",
-    color: "#ff6b35"
+    title: "Horizon",
+    artist: "MAYA",
+    type: "Single",
+    year: "2023",
+    streams: "180K"
   },
 ];
 
-export default function PortfolioPage() {
+export default function ReleasesPage() {
   const [activeCategory, setActiveCategory] = useState("Tous");
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
-  const filteredProjects = activeCategory === "Tous"
-    ? projects
-    : projects.filter(p => p.category === activeCategory);
+  const filteredReleases = activeCategory === "Tous"
+    ? releases
+    : releases.filter(r => r.type === activeCategory);
 
   return (
     <div className="pt-20">
@@ -119,23 +118,18 @@ export default function PortfolioPage() {
         <div className="absolute inset-0 action-lines opacity-20"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="inline-block mb-6 float-animation">
-              <div className="bg-[#ffd23f] border-4 border-black px-6 py-2 -rotate-2">
-                <span className="font-[family-name:var(--font-bangers)] text-black text-xl">NOS CHEFS-D&apos;ŒUVRE !</span>
-              </div>
-            </div>
             <h1 className="font-[family-name:var(--font-bangers)] text-5xl sm:text-6xl lg:text-7xl text-white mb-6">
-              <span className="text-[#ff6b35]">PORTFOLIO</span>
+              <span className="text-[#e63946]">RELEASES</span>
             </h1>
             <p className="text-gray-300 text-xl max-w-3xl mx-auto">
-              Découvrez nos réalisations les plus marquantes et laissez-vous inspirer
+              Toutes les sorties du label
             </p>
           </div>
         </div>
       </section>
 
       {/* Filter Section */}
-      <section className="py-8 border-y-4 border-[#ff6b35]/30">
+      <section className="py-8 border-y-4 border-[#e63946]/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
@@ -144,8 +138,8 @@ export default function PortfolioPage() {
                 onClick={() => setActiveCategory(category)}
                 className={`px-6 py-2 font-[family-name:var(--font-bangers)] text-lg tracking-wide border-4 border-black transition-all ${
                   activeCategory === category
-                    ? "bg-[#ff6b35] text-black shadow-[4px_4px_0_0_#000]"
-                    : "bg-transparent text-white hover:bg-[#ff6b35]/20"
+                    ? "bg-[#e63946] text-white shadow-[4px_4px_0_0_#000]"
+                    : "bg-transparent text-white hover:bg-[#e63946]/20"
                 }`}
               >
                 {category}
@@ -155,73 +149,66 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Projects Grid */}
+      {/* Releases Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
+            {filteredReleases.map((release, index) => (
               <div
-                key={project.id}
+                key={release.id}
                 className="group relative comic-border bg-[#1a1a2e] overflow-hidden cursor-pointer transform hover:scale-[1.02] transition-all duration-300"
                 style={{
                   transform: `rotate(${index % 2 === 0 ? '1' : '-1'}deg)`,
                 }}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
               >
-                {/* Project Image Placeholder */}
-                <div className="aspect-[4/3] relative">
+                {/* Cover Placeholder */}
+                <div className="aspect-square relative">
                   <div
                     className="absolute inset-0 opacity-30 transition-opacity group-hover:opacity-50"
-                    style={{ background: `linear-gradient(135deg, ${project.color}60, transparent)` }}
+                    style={{ background: `linear-gradient(135deg, #e63946, #1a1a2e)` }}
                   ></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-[family-name:var(--font-bangers)] text-6xl text-white/20">
-                      {project.category.charAt(0)}
+                    <span className="font-[family-name:var(--font-bangers)] text-8xl text-white/20 group-hover:scale-110 transition-transform">
+                      {release.artist.charAt(0)}
                     </span>
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className={`absolute inset-0 bg-black/80 flex items-center justify-center transition-opacity duration-300 ${
-                    hoveredProject === project.id ? 'opacity-100' : 'opacity-0'
-                  }`}>
-                    <div className="text-center p-6">
-                      <p className="text-gray-300 mb-4">{project.description}</p>
-                      <div className="bg-[#ffd23f] border-3 border-black px-4 py-2 inline-block">
-                        <span className="font-[family-name:var(--font-bangers)] text-black">VOIR LE PROJET</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Category Badge */}
+                  {/* Type Badge */}
                   <div className="absolute top-4 left-4">
-                    <span
-                      className="text-xs font-bold px-3 py-1 border-2 border-black"
-                      style={{ backgroundColor: project.color }}
-                    >
-                      {project.category}
+                    <span className="text-xs font-bold px-3 py-1 border-2 border-black bg-[#e63946] text-white">
+                      {release.type}
                     </span>
                   </div>
 
                   {/* Year Badge */}
                   <div className="absolute top-4 right-4">
                     <span className="bg-black/80 text-white text-xs px-2 py-1 font-bold">
-                      {project.year}
+                      {release.year}
                     </span>
+                  </div>
+
+                  {/* Play Overlay */}
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-[#e63946] flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
-                {/* Project Info */}
+                {/* Release Info */}
                 <div className="p-6 border-t-4 border-black">
-                  <h3
-                    className="font-[family-name:var(--font-bangers)] text-xl mb-2"
-                    style={{ color: project.color }}
-                  >
-                    {project.title}
+                  <h3 className="font-[family-name:var(--font-bangers)] text-2xl text-[#e63946] mb-1">
+                    {release.title}
                   </h3>
-                  <p className="text-gray-400 text-sm line-clamp-2">
-                    {project.description}
-                  </p>
+                  <p className="text-white text-lg mb-2">{release.artist}</p>
+                  <div className="flex items-center gap-2 text-gray-500">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
+                    </svg>
+                    <span className="text-sm">{release.streams} streams</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -234,15 +221,15 @@ export default function PortfolioPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             {[
-              { value: "150+", label: "Projets", color: "#ff6b35" },
-              { value: "50+", label: "Clips", color: "#ffd23f" },
-              { value: "30+", label: "Événements", color: "#004e89" },
-              { value: "100+", label: "Artistes", color: "#ff6b35" },
-            ].map((stat) => (
+              { value: "7M+", label: "Streams totaux" },
+              { value: "15+", label: "Releases" },
+              { value: "6", label: "Artistes" },
+              { value: "2023", label: "Depuis" },
+            ].map((stat, index) => (
               <div key={stat.label} className="group">
                 <div
                   className="font-[family-name:var(--font-bangers)] text-5xl mb-2 comic-title group-hover:scale-110 transition-transform inline-block"
-                  style={{ color: stat.color }}
+                  style={{ color: index % 2 === 0 ? '#e63946' : '#ffffff' }}
                 >
                   {stat.value}
                 </div>
@@ -259,14 +246,19 @@ export default function PortfolioPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="comic-panel p-12">
             <h2 className="font-[family-name:var(--font-bangers)] text-4xl sm:text-5xl text-white mb-6">
-              VOTRE PROJET <span className="text-[#ffd23f]">ICI</span> ?
+              ÉCOUTE SUR <span className="text-[#e63946]">TOUTES LES PLATEFORMES</span>
             </h2>
-            <p className="text-gray-300 text-lg mb-8">
-              Rejoignez notre galerie de projets réussis. Parlons de votre prochaine création !
-            </p>
-            <Link href="/contact" className="btn-comic bg-[#ff6b35] text-black hover:bg-[#ffd23f]">
-              DÉMARRER UN PROJET
-            </Link>
+            <div className="flex flex-wrap justify-center gap-4">
+              {["Spotify", "Apple Music", "Deezer", "YouTube Music"].map((platform) => (
+                <a
+                  key={platform}
+                  href="#"
+                  className="px-6 py-3 bg-[#1a1a2e] border-2 border-black text-white font-bold hover:bg-[#e63946] transition-colors"
+                >
+                  {platform}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
