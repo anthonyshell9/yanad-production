@@ -55,7 +55,8 @@ jobs:
             --resource-group ${{ env.AZURE_RG_NAME }} \
             --settings \
             SCM_DO_BUILD_DURING_DEPLOYMENT=false \
-            WEBSITE_RUN_FROM_PACKAGE=1
+            WEBSITE_RUN_FROM_PACKAGE=1 \
+            WEBSITE_NODE_DEFAULT_VERSION=~20
 
       - name: Configure startup command
         run: |
@@ -63,6 +64,9 @@ jobs:
             --name ${{ env.AZURE_WEBAPP_NAME }} \
             --resource-group ${{ env.AZURE_RG_NAME }} \
             --startup-file "node server.js"
+
+      - name: Wait for configuration to apply
+        run: sleep 30
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
